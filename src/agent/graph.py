@@ -38,10 +38,37 @@ async def call_model(state: State, config: RunnableConfig) -> Dict[str, Any]:
 
     Can use runtime configuration to alter behavior.
     """
-    configuration = config["configurable"]
+    langgraph_user = config.get("configurable").get("langgraph_auth_user", {})
+    
+    # Print all values and structure of langgraph_user
+    print("=== langgraph_user variable details ===")
+    print(f"Type: {type(langgraph_user)}")
+    print(f"Value: {langgraph_user}")
+    print(f"Boolean evaluation: {bool(langgraph_user)}")
+    print(f"Dir: {dir(langgraph_user)}")
+    
+    # If it's a dictionary-like object, print all keys and values
+    if hasattr(langgraph_user, '__dict__'):
+        print(f"Attributes: {langgraph_user.__dict__}")
+    
+    # If it's a dictionary, print all items
+    if isinstance(langgraph_user, dict):
+        print("Dictionary items:")
+        for key, value in langgraph_user.items():
+            print(f"  {key}: {value}")
+    
+    print('identity', langgraph_user.identity)
+    print('is authenticated', langgraph_user.is_authenticated)
+    print('current', langgraph_user.current)
+    
+    if not langgraph_user:
+        raise Exception("User not available")
+    if not langgraph_user.is_authenticated:
+        raise Exception("User is not authenticated")
+    user = langgraph_user.current
     return {
         "changeme": "output from call_model. "
-        f'Configured with {configuration.get("my_configurable_param")}'
+        f'Calling user - {user}'
     }
 
 

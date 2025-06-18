@@ -4,5 +4,8 @@
     "agent": "./src/agent/graph.py:graph"
   },
   "env": ".env",
+  "auth": {
+    "path": "./src/agent/auth.py:auth"
+  },
   "image_distro": "wolfi"
 }
