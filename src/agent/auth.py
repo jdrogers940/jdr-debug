@@ -3,7 +3,7 @@ from langgraph_sdk import Auth
 auth = Auth()
 
 @auth.authenticate
-def get_user_info(authorization: str) -> dict:
+async def authorize(headers: dict, path: str) -> Auth.types.MinimalUserDict:
     return {
         "identity": "employee id",
         "current": "josh",
