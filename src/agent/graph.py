@@ -57,15 +57,16 @@ async def call_model(state: State, config: RunnableConfig) -> Dict[str, Any]:
         for key, value in langgraph_user.items():
             print(f"  {key}: {value}")
     
-    print('identity', langgraph_user.identity)
-    print('is authenticated', langgraph_user.is_authenticated)
-    print('current', langgraph_user.current)
-    
     if not langgraph_user:
         raise Exception("User not available")
     if not langgraph_user.is_authenticated:
         raise Exception("User is not authenticated")
     user = langgraph_user.current
+
+    print('identity', langgraph_user.identity)
+    print('is authenticated', langgraph_user.is_authenticated)
+    print('current', langgraph_user.current)
+
     return {
         "changeme": "output from call_model. "
         f'Calling user - {user}'
