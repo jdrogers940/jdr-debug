@@ -84,7 +84,7 @@ async def call_model(state: State, config: RunnableConfig) -> Dict[str, Any]:
         raise Exception("User not available")
     if not langgraph_user["is_authenticated"]:
         raise Exception("User is not authenticated")
-    user = langgraph_user.current
+    user = langgraph_user["current"]
 
     try:
         result = await multiply.invoke({"a": 2, "b": 3})
